@@ -7,6 +7,7 @@ const UserItem = (props) => {
   return (
     <li className="user-item">
       <Card className="user-item__content">
+        {/* link to special user's places */}
         <Link to={`/${props.id}/places`}>
           <div className="user-item__image">
             <Avatar image={props.image} alt={props.name} />
