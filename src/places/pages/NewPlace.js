@@ -1,7 +1,61 @@
 import React from "react";
+import Input from "../../shared/components/FormElements/Input";
+import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../../util/validators";
+import Button from "../../shared/components/FormElements/Button";
+import { useForm } from "../../shared/hooks/form-hook";
+import "./PlaceForm.css";
 
 const NewPlace = () => {
-  return <h1>Place working </h1>;
+  const [formState,inputHandler] =useForm({
+    title: {
+      value: "",
+      isValid: false,
+    },
+    description: {
+      value: "",
+      isValid: false,
+    },
+    address: {
+      value: "",
+      isValid: false,
+    },
+  },false);
+ 
+  const placeSubmitHandler = event =>{
+    event.preventDefault();
+    console.log(formState.inputs)
+  }
+  return (
+    <form className="place-form" onSubmit={placeSubmitHandler}>
+      <Input
+        id="title"
+        element="input"
+        type="text"
+        label="Title"
+        errorText="Please enter a valid title"
+        validators={[VALIDATOR_REQUIRE()]}
+        onInput={inputHandler}
+      />
+       <Input
+        id="address"
+        element="input"
+        type="text"
+        label="Address"
+        errorText="Please enter a valid address"
+        validators={[VALIDATOR_REQUIRE()]}
+        onInput={inputHandler}
+      />
+      <Input
+        id="description"
+        element="textarea"
+        label="Description"
+        errorText="Please enter a valid description (at least 5 characters)."
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
+        onInput={inputHandler}
+      />
+      <Button type="submit"  disabled={!formState.isValid}>ADD PLACE</Button>
+    </form>
+  );
 };
 
 export default NewPlace;
