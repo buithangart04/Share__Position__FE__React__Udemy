@@ -9,7 +9,7 @@ const User = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const responseData = await sendRequest("http://localhost:5000/api/users/");
+        const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL+"/users/");
         setLoadedUser(responseData.users);
       } catch (err) {
       }
